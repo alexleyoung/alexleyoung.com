@@ -123,12 +123,25 @@
 }
 
 @layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
+  .scrollbar-hide {
 
-  .no-scrollbar {
-    -ms-overflow-style: none;
+    /* For Chrome, Safari, and newer versions of Edge */
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+      background: transparent;
+    }
+
+    /* For Firefox */
     scrollbar-width: none;
+
+    /* For IE and older versions of Edge */
+    -ms-overflow-style: none;
+
+    /* Additional safety to ensure scrollbar is hidden */
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
   }
 }

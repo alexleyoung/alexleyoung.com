@@ -1,4 +1,15 @@
+import InfiniteScrollNav from "@/components/ui/infinite-scroll";
+import type { NavItem } from "@/components/ui/infinite-scroll";
 import { RotatingText } from "@/components/ui/rotating-text";
+
+const sections: NavItem[] = [
+  { id: "home", label: "HOME" },
+  { id: "about", label: "ABOUT" },
+  { id: "experience", label: "EXPERIENCE" },
+  { id: "projects", label: "PROJECTS" },
+  { id: "involvement", label: "INVOLVEMENT" },
+  { id: "contact", label: "CONTACT" },
+]
 
 export default function Home() {
   return (
@@ -10,11 +21,7 @@ export default function Home() {
         </span>
         <div id="scroll tabs">
           <div className="p-8 no-scrollbar h-full flex flex-col gap-8">
-            <h3 className="lg:text-4xl font-extralight tracking-wide">ABOUT</h3>
-            <h3 className="lg:text-4xl font-extralight tracking-wide">EXPERIENCE</h3>
-            <h3 className="lg:text-4xl font-extralight tracking-wide">PROJECTS</h3>
-            <h3 className="lg:text-4xl font-extralight tracking-wide">INVOLVEMENT</h3>
-            <h3 className="lg:text-4xl font-extralight tracking-wide">CONTACT</h3>
+            <InfiniteScrollNav items={sections} className="h-[32rem] w-96 scrollbar-hide border-none" containerClassName="space-y-16 text-4xl tracking-wide" />
           </div>
         </div>
       </div>
