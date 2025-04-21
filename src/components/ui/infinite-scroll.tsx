@@ -79,11 +79,15 @@ export default function InfiniteScrollNav({
   const [activeIndex, setActiveIndex] = useState(0)
   const scrollContainerRef = useRef<HTMLUListElement>(null)
   const [repeatedItems, setRepeatedItems] = useState<NavItem[]>([])
+  const NUM_REPITITIONS = 5;
+  const ITEM_HEIGHT = 100 // font + space-y
+  const SCROLL_OFFSET = 50 // account for user scroll "velocity" at teleport breakpoint
 
   // Create repeated items for infinite scroll effect
   useEffect(() => {
-    // Repeat the menu items 3 times to create the illusion of infinite scrolling
-    setRepeatedItems([...items, ...items, ...items, ...items, ...items])
+    for (let i = 0; i < NUM_REPITITIONS; i++) {
+      setRepeatedItems(prevItems => [...prevItems, ...items])
+    }
   }, [items])
 
   // Update all instances of MENU_ITEMS to items in the handleScroll function:
@@ -91,16 +95,22 @@ export default function InfiniteScrollNav({
     const scrollContainer = scrollContainerRef.current
     if (!scrollContainer) return
 
-    const itemHeight = 48 // approximate height of each item
+    scrollContainer.style.scrollBehavior = "smooth"
+    // Initial scroll position to the middle set
+    requestAnimationFrame(() => {
+      scrollContainer.scrollTop = (items.length * ITEM_HEIGHT * NUM_REPITITIONS) / 2
+    });
+
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } = scrollContainer
 
       // When we reach near the bottom, jump back to the middle set
-      if (scrollTop + clientHeight > scrollHeight - 100) {
+      if (scrollTop + clientHeight > scrollHeight - 1 * ITEM_HEIGHT) {
         // Disable smooth scrolling temporarily
         scrollContainer.style.scrollBehavior = "auto"
         // Jump to the middle set (same position visually)
-        scrollContainer.scrollTop = 0
+        scrollContainer.scrollTop = (items.length * ITEM_HEIGHT * NUM_REPITITIONS) / 2 + SCROLL_OFFSET
+
         // Re-enable smooth scrolling
         setTimeout(() => {
           scrollContainer.style.scrollBehavior = "smooth"
@@ -108,24 +118,16 @@ export default function InfiniteScrollNav({
       }
 
       // When we reach near the top, jump to the middle set
-      if (scrollTop < 100) {
+      if (scrollTop < ITEM_HEIGHT) {
         scrollContainer.style.scrollBehavior = "auto"
-        scrollContainer.scrollTop = scrollTop + items.length * 3 * itemHeight
+        scrollContainer.scrollTop = (items.length * ITEM_HEIGHT * NUM_REPITITIONS) / 2 - SCROLL_OFFSET
         setTimeout(() => {
           scrollContainer.style.scrollBehavior = "smooth"
         }, 50)
       }
-
-      // Update active index based on scroll position
-      //const middleOfViewport = scrollTop + clientHeight / 2
-      //const estimatedIndex = Math.floor(middleOfViewport / itemHeight) % items.length
-      //setActiveIndex(estimatedIndex)
     }
 
     scrollContainer.addEventListener("scroll", handleScroll)
-
-    // Initial scroll position to the middle set
-    scrollContainer.scrollTop = items.length * itemHeight - 40
 
     return () => {
       scrollContainer.removeEventListener("scroll", handleScroll)
