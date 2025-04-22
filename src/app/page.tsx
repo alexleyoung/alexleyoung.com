@@ -1,5 +1,3 @@
-
-
 import { InfiniteScrollNav, type NavItem } from "@/components/ui/infinite-scroll";
 import { RotatingText } from "@/components/ui/rotating-text";
 import { ThemeToggle } from "@/components/home/theme-toggle";
@@ -27,11 +25,11 @@ export default function Home() {
         </span>
         <div id="scroll tabs">
           <div className="p-8 no-scrollbar h-full flex flex-col gap-8">
-            <InfiniteScrollNav items={sections} className="lg:h-[32rem] h-[40rem] w-96 scrollbar-hide border-none" containerClassName="space-y-16 lg:text-4xl text-4xl tracking-wide lg:text-start text-center" />
+            <InfiniteScrollNav items={sections} className="lg:h-[32rem] h-[40rem] w-96 scrollbar-hide border-none" containerClassName="space-y-16 lg:text-4xl text-4xl tracking-wide" />
           </div>
         </div>
       </div>
-      <div className="justify-self-end py-1">
+      <div id="br submenu" className="justify-self-end py-1">
         <ThemeToggle />
       </div>
     </main>

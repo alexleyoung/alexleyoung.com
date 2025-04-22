@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useInView } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
 
+
 // Add this interface at the top of the file, after the imports
 export interface NavItem {
   id: string
@@ -36,8 +37,8 @@ const NavItem = ({
         }}
         transition={{ duration: 0.3 }}
         className={cn(
-          "py-3 px-4 cursor-pointer transition-colors duration-200 ease-in-out",
-          isActive ? "text-primary font-medium" : "text-muted-foreground hover:text-primary",
+          "py-3 px-4 cursor-pointer transition-colors ease-in-out",
+          isActive ? "text-primary font-medium duration-100" : "text-muted-foreground hover:text-primary",
         )}
         onClick={onClick}
       >
@@ -125,7 +126,7 @@ export function InfiniteScrollNav({
     }
   }, [repeatedItems, items])
 
-  if (!mounted) return null;
+  if (!mounted) return <div className="h-[40rem]" />;
 
   // Update the handleItemClick function:
   const handleItemClick = (index: number) => {
@@ -141,7 +142,7 @@ export function InfiniteScrollNav({
     <div className={cn("relative h-full w-full max-w-xs border-r border-border", className)}>
       <div
         className={cn(
-          "absolute inset-x-0 top-0 h-16 z-10 pointer-events-none transition-opacity duration-1000",
+          "absolute inset-x-0 top-0 h-16 z-10 pointer-events-none transition-opacity",
           resolvedTheme === "dark" ? "opacity-100" : "opacity-0"
         )}
         style={{
