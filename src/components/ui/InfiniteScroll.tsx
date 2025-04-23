@@ -126,7 +126,7 @@ export function InfiniteScrollNav({
     }
   }, [repeatedItems, items])
 
-  if (!mounted) return <div className="h-[40rem]" />;
+  if (!mounted) return <div className="lg:h-[40rem] h-[24rem]" />;
 
   // Update the handleItemClick function:
   const handleItemClick = (index: number) => {
