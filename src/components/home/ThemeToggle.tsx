@@ -21,11 +21,11 @@ export function ThemeToggle() {
 			<RadioGroup className={cn("flex gap-4 font-extralight")} defaultValue={resolvedTheme}>
 				<div className="flex gap-2 items-center" onClick={() => { setTheme("light") }}>
 					<RadioGroupItem className="size-3 border-foreground rounded-none" value="light" id="light" />
-					<Label htmlFor="light">Light</Label>
+					<Label htmlFor="light" className='text-xs'>LIGHT</Label>
 				</div>
 				<div className="flex gap-2 items-center" onClick={() => { setTheme("dark") }}>
 					<RadioGroupItem className="size-3 border-foreground rounded-none" value="dark" id="dark" />
-					<Label htmlFor="dark">Dark</Label>
+					<Label htmlFor="dark" className='text-xs'>DARK</Label>
 				</div>
 			</RadioGroup>
 		</motion.div >

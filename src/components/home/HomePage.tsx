@@ -1,3 +1,5 @@
+import { motion } from "framer-motion"
+
 import { InfiniteScrollNav, type NavItem } from "@/components/ui/InfiniteScroll";
 import { RotatingText } from "@/components/ui/RotatingText";
 import { ThemeToggle } from "@/components/home/ThemeToggle";
@@ -16,7 +18,11 @@ const sections: NavItem[] = [
 
 export function HomePage() {
 	return (
-		<main className="h-screen md:py-14 md:px-11 px-7 py-10 overflow-hidden bg-background transition-colors duration-1000">
+		<motion.main
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ duration: 1 }}
+			className="fixed inset-0 md:py-14 md:px-11 px-7 py-10 overflow-hidden bg-background transition-colors duration-1000">
 			<div id="border" className="border-[.05px] duration-1000 transition-colors bg-background border-foreground h-full grid lg:grid-cols-2 place-items-center">
 				<span id="name" className="flex flex-col gap-4 lg:mt-0 mt-16">
 					<h1 className="lg:text-6xl text-4xl font-extralight tracking-wide">Alex Young</h1>
@@ -31,6 +37,6 @@ export function HomePage() {
 			<div id="br submenu" className="justify-self-end py-1">
 				<ThemeToggle />
 			</div>
-		</main>
+		</motion.main>
 	);
 }

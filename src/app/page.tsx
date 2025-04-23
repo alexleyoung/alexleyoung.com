@@ -8,5 +8,5 @@ import { Intro } from "@/components/intro/Intro";
 export default function Main() {
   const [introComplete, setIntroComplete] = useState(false);
 
-  return (introComplete ? <HomePage /> : <Intro />)
+  return (introComplete ? <HomePage /> : <Intro onComplete={() => setIntroComplete(true)} />)
 }
