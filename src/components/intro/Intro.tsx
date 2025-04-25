@@ -1,43 +1,49 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 
-type IntroProps = {
-	onComplete(): void
-}
-
-export function Intro({ onComplete }: IntroProps) {
-	const [show, setShow] = useState(true);
+export function Intro() {
+	const [introComplete, setIntroComplete] = useState(false)
+	const [hasMounted, setHasMounted] = useState(false)
 
 	useEffect(() => {
+		const seenIntro = sessionStorage.getItem("intro-complete")
+		if (seenIntro) {
+			setIntroComplete(true)
+		}
+		setHasMounted(true)
 		setTimeout(() => {
-			setShow(false);
-			onComplete();
+			setIntroComplete(true);
+			sessionStorage.setItem("intro-complete", "true")
 		}, 1000);
-	}, [onComplete])
+	}, [setIntroComplete])
+
+	if (!hasMounted) return <div className="fixed inset-0 z-50 bg-background" />
 
 	return (
-		show && (
-			<main id="intro" className="fixed inset-0 bg-background grid place-items-center">
-				<div className="flex lg:flex-row flex-col gap-2 text-2xl tracking-wide">
-					<motion.span
-						initial={{ opacity: 1 }}
-						animate={{ opacity: 0 }}
-						transition={{ delay: .7, duration: .3 }}
-					>
-						Alex Young
-					</motion.span>
-					<motion.span
-						initial={{ opacity: 1 }}
-						animate={{ opacity: 0 }}
-						transition={{ delay: .85, duration: .3 }}
-						className="font-extralight"
-					>
-						Portfolio
-					</motion.span>
-				</div>
-			</main>
-		)
+		<AnimatePresence>
+			{!introComplete && (
+				<motion.main exit={{ opacity: 0, transition: { duration: 1 } }} id="intro" className="fixed inset-0 z-50 bg-background grid place-items-center">
+					<div className="flex lg:flex-row flex-col gap-2 text-2xl tracking-wide">
+						<motion.span
+							initial={{ opacity: 1 }}
+							animate={{ opacity: 0 }}
+							transition={{ delay: .7, duration: .3 }}
+						>
+							Alex Young
+						</motion.span>
+						<motion.span
+							initial={{ opacity: 1 }}
+							animate={{ opacity: 0 }}
+							transition={{ delay: .85, duration: .3 }}
+							className="font-extralight"
+						>
+							Portfolio
+						</motion.span>
+					</div>
+				</motion.main>
+			)}
+		</AnimatePresence >
 	)
 }

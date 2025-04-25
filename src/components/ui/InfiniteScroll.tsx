@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
+import { useRouter } from "next/navigation"
 
 
 // Add this interface at the top of the file, after the imports
@@ -63,6 +64,8 @@ export function InfiniteScrollNav({
   const NUM_REPITITIONS = 5;
   const ITEM_HEIGHT = 100 // font + space-y
   const SCROLL_OFFSET = 125 // account for user scroll "velocity" at teleport breakpoint
+
+  const router = useRouter();
 
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
@@ -127,8 +130,10 @@ export function InfiniteScrollNav({
     const actualIndex = index % items.length
     setActiveIndex(actualIndex)
 
+    const item = items[actualIndex];
+
     // You can add navigation logic here
-    console.log(`Navigating to: ${items[actualIndex].label}`)
+    router.push(item.href);
   }
 
   // Update the return statement to use the className props
