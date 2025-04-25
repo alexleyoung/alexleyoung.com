@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { AnimatePresence, motion, useInView } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
 
@@ -10,6 +10,7 @@ import { useTheme } from "next-themes"
 export interface NavItem {
   id: string
   label: string
+  href: string
 }
 
 // Update the NavItem component props to use the NavItem interface:
@@ -24,18 +25,11 @@ const NavItem = ({
   onClick: () => void
 }) => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { margin: "-10% 0px -10% 0px" })
 
   return (
     <AnimatePresence>
       <motion.li
         ref={ref}
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity: isInView ? 1 : 1,
-          y: isInView ? 0 : 20,
-        }}
-        transition={{ duration: 0.3 }}
         className={cn(
           "py-3 px-4 cursor-pointer transition-colors ease-in-out",
           isActive ? "text-primary font-medium duration-100" : "text-muted-foreground hover:text-primary",

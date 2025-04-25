@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider"
 import "./globals.css";
+import { IntroProvider } from "@/context/IntroContext";
 
 const nskr = Noto_Sans_KR({
   variable: "--font-inter",
@@ -29,7 +30,9 @@ export default function RootLayout({
           defaultTheme="light"
           enableSystem
         >
-          {children}
+          <IntroProvider>
+            {children}
+          </IntroProvider>
         </ThemeProvider>
       </body>
     </html>

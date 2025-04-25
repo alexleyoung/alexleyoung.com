@@ -31,7 +31,7 @@ export function Intro({ onComplete }: IntroProps) {
 					<motion.span
 						initial={{ opacity: 1 }}
 						animate={{ opacity: 0 }}
-						transition={{ delay: .85, duration: .300 }}
+						transition={{ delay: .85, duration: .3 }}
 						className="font-extralight"
 					>
 						Portfolio

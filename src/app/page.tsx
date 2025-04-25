@@ -1,12 +1,18 @@
 "use client"
 
-import { useState } from "react";
-
+import { Canvas } from "@/components/ui/Canvas";
 import { HomePage } from "@/components/home/HomePage";
 import { Intro } from "@/components/intro/Intro";
+import { useIntro } from "@/context/IntroContext";
 
 export default function Main() {
-  const [introComplete, setIntroComplete] = useState(false);
+  const { introComplete, setIntroComplete } = useIntro();
 
-  return (introComplete ? <HomePage /> : <Intro onComplete={() => setIntroComplete(true)} />)
+  return (
+    introComplete ?
+      <Canvas>
+        <HomePage />
+      </Canvas> :
+      <Intro onComplete={() => setIntroComplete(true)} />
+  )
 }
