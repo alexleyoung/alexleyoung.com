@@ -14,17 +14,17 @@ export function IntroProvider({ children }: { children: React.ReactNode }) {
 	const [hasMounted, setHasMounted] = useState(false)
 
 	useEffect(() => {
-		const seenIntro = sessionStorage.getItem("intro-complete")
-		if (seenIntro) {
-			setIntroComplete(true)
-		}
+		//const seenIntro = sessionStorage.getItem("intro-complete")
+		//if (seenIntro) {
+		//	setIntroComplete(true)
+		//}
 		setHasMounted(true)
 	}, [])
 
 	const handleSetIntroComplete = (complete: boolean) => {
-		if (complete) {
-			sessionStorage.setItem("intro-complete", "true")
-		}
+		//if (complete) {
+		//	sessionStorage.setItem("intro-complete", "true")
+		//}
 		setIntroComplete(complete)
 	}
 

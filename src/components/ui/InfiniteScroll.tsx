@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { AnimatePresence, motion } from "framer-motion"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
@@ -28,18 +28,16 @@ const NavItem = ({
   const ref = useRef(null)
 
   return (
-    <AnimatePresence>
-      <motion.li
-        ref={ref}
-        className={cn(
-          "py-3 px-4 cursor-pointer transition-colors ease-in-out",
-          isActive ? "text-primary font-medium duration-100" : "text-muted-foreground hover:text-primary",
-        )}
-        onClick={onClick}
-      >
-        <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} exit={{ opacity: 0 }}>{item.label}</motion.span>
-      </motion.li>
-    </AnimatePresence>
+    <motion.li
+      ref={ref}
+      className={cn(
+        "py-3 px-4 cursor-pointer transition-colors ease-in-out",
+        isActive ? "text-primary font-medium duration-100" : "text-muted-foreground hover:text-primary",
+      )}
+      onClick={onClick}
+    >
+      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>{item.label}</motion.span>
+    </motion.li>
   )
 }
 
