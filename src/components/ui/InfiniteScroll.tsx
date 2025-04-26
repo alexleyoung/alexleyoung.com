@@ -1,15 +1,17 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { AnimatePresence, motion, useInView } from "framer-motion"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
+import { useRouter } from "next/navigation"
 
 
 // Add this interface at the top of the file, after the imports
 export interface NavItem {
   id: string
   label: string
+  href: string
 }
 
 // Update the NavItem component props to use the NavItem interface:
@@ -24,27 +26,18 @@ const NavItem = ({
   onClick: () => void
 }) => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { margin: "-10% 0px -10% 0px" })
 
   return (
-    <AnimatePresence>
-      <motion.li
-        ref={ref}
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity: isInView ? 1 : 1,
-          y: isInView ? 0 : 20,
-        }}
-        transition={{ duration: 0.3 }}
-        className={cn(
-          "py-3 px-4 cursor-pointer transition-colors ease-in-out",
-          isActive ? "text-primary font-medium duration-100" : "text-muted-foreground hover:text-primary",
-        )}
-        onClick={onClick}
-      >
-        <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} exit={{ opacity: 0 }}>{item.label}</motion.span>
-      </motion.li>
-    </AnimatePresence>
+    <motion.li
+      ref={ref}
+      className={cn(
+        "py-3 px-4 cursor-pointer transition-colors ease-in-out",
+        isActive ? "text-primary font-medium duration-100" : "text-muted-foreground hover:text-primary",
+      )}
+      onClick={onClick}
+    >
+      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>{item.label}</motion.span>
+    </motion.li>
   )
 }
 
@@ -69,6 +62,8 @@ export function InfiniteScrollNav({
   const NUM_REPITITIONS = 5;
   const ITEM_HEIGHT = 100 // font + space-y
   const SCROLL_OFFSET = 125 // account for user scroll "velocity" at teleport breakpoint
+
+  const router = useRouter();
 
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
@@ -133,8 +128,10 @@ export function InfiniteScrollNav({
     const actualIndex = index % items.length
     setActiveIndex(actualIndex)
 
+    const item = items[actualIndex];
+
     // You can add navigation logic here
-    console.log(`Navigating to: ${items[actualIndex].label}`)
+    router.push(item.href);
   }
 
   // Update the return statement to use the className props
