@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import { Noto_Sans_KR } from "next/font/google";
+import { EB_Garamond } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider"
 import "./globals.css";
 
-const nskr = Noto_Sans_KR({
-  variable: "--font-inter",
+const font = EB_Garamond({
   subsets: ["latin"],
 });
-
 
 export const metadata: Metadata = {
   title: "ALEX YOUNG | PORTFOLIO",
@@ -22,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${nskr.variable} antialiased`}
+        className={`${font.className} antialiased`}
       >
         <ThemeProvider
           attribute="class"

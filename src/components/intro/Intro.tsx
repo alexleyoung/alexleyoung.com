@@ -22,8 +22,17 @@ export function Intro() {
 							initial={{ opacity: 1 }}
 							animate={{ opacity: 0 }}
 							transition={{ delay: .7, duration: .3 }}
+							className="font-semibold"
 						>
-							Alex Young
+							alex young
+						</motion.span>
+						<motion.span
+							initial={{ opacity: 1 }}
+							animate={{ opacity: 0 }}
+							transition={{ delay: .775, duration: .3 }}
+							className="font-extralight"
+						>
+							|
 						</motion.span>
 						<motion.span
 							initial={{ opacity: 1 }}
@@ -31,7 +40,7 @@ export function Intro() {
 							transition={{ delay: .85, duration: .3 }}
 							className="font-extralight"
 						>
-							Portfolio
+							portfolio
 						</motion.span>
 					</div>
 				</motion.main>
